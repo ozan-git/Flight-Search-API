@@ -16,23 +16,6 @@ public class Airport implements Serializable {
     @Column(name = "city", length = 100)
     private String city;
 
-    // Constructors
-    public Airport() {
-    }
-
-    public Airport(String city) {
-        this.city = city;
-    }
-
-    // Getters and setters
-    public Integer getAirportID() {
-        return airportID;
-    }
-
-    public void setAirportID(Integer airportID) {
-        this.airportID = airportID;
-    }
-
     public String getCity() {
         return city;
     }

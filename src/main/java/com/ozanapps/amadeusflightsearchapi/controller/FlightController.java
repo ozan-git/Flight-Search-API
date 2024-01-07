@@ -2,6 +2,7 @@ package com.ozanapps.amadeusflightsearchapi.controller;
 
 import com.ozanapps.amadeusflightsearchapi.model.Flight;
 import com.ozanapps.amadeusflightsearchapi.service.FlightService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,9 +53,12 @@ public class FlightController {
     @GetMapping("/search")
     public ResponseEntity<List<Flight>> searchFlights(@RequestParam(required = false) String departureAirport,
                                                       @RequestParam(required = false) String arrivalAirport,
-                                                      @RequestParam(required = false) LocalDateTime departureTime,
-                                                      @RequestParam(required = false) LocalDateTime returnTime) {
+                                                      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureTime,
+                                                      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime returnTime) {
         List<Flight> flights = flightService.searchFlights(departureAirport, arrivalAirport, departureTime, returnTime);
-        return ResponseEntity.ok(flights);
+        if (flights.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(flights, HttpStatus.OK);
     }
 }

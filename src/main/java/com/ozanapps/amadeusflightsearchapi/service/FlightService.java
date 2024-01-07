@@ -45,12 +45,20 @@ public class FlightService {
         flightRepository.deleteById(id);
     }
 
-    public List<Flight> searchFlights(String departureAirport, String arrivalAirport, LocalDateTime departureTime, LocalDateTime returnTime) {
-        return flightRepository.searchFlights(departureAirport, arrivalAirport, departureTime, returnTime);
-    }
-
     // search flights by id
     public List<Flight> searchFlightsById(Long id) {
         return flightRepository.searchFlightsById(id);
     }
+
+    public List<Flight> searchFlights(String departureAirport, String arrivalAirport, LocalDateTime departureTime, LocalDateTime returnTime) {
+        if (returnTime == null) {
+            return flightRepository.findByDepartureAirportAndArrivalAirportAndDepartureTime(departureAirport, arrivalAirport, departureTime);
+        } else {
+            List<Flight> departures = flightRepository.findByDepartureAirportAndArrivalAirportAndDepartureTime(departureAirport, arrivalAirport, departureTime);
+            List<Flight> returns = flightRepository.findByDepartureAirportAndArrivalAirportAndDepartureTime(arrivalAirport, departureAirport, returnTime);
+            departures.addAll(returns);
+            return departures;
+        }
+    }
+
 }
