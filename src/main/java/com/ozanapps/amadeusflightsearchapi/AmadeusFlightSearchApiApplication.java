@@ -9,5 +9,4 @@ public class AmadeusFlightSearchApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(AmadeusFlightSearchApiApplication.class, args);
     }
-
 }

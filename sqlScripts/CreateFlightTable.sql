@@ -1,10 +1,10 @@
-CREATE TABLE Flights
+CREATE TABLE flights
 (
-    FlightID         INT AUTO_INCREMENT,
-    DepartureAirport VARCHAR(100),
-    ArrivalAirport   VARCHAR(100),
-    DepartureTime    DATETIME,
-    ArrivalTime      DATETIME,
-    Price            DECIMAL(10, 2),
-    PRIMARY KEY (FlightID)
+    flight_id         INT AUTO_INCREMENT,
+    departure_airport VARCHAR(100),
+    arrival_airport   VARCHAR(100),
+    departure_time    DATETIME,
+    arrival_time      DATETIME,
+    price             DECIMAL(10, 2),
+    PRIMARY KEY (flight_id)
 );

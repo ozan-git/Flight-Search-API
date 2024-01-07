@@ -1,6 +1,6 @@
-CREATE TABLE Airports
+CREATE TABLE airports
 (
-    AirportID INT AUTO_INCREMENT,
-    City      VARCHAR(100),
-    PRIMARY KEY (AirportID)
+    airport_id INT AUTO_INCREMENT,
+    city       VARCHAR(100),
+    PRIMARY KEY (airport_id)
 );
