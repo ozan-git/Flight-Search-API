@@ -2,6 +2,7 @@ package com.ozanapps.amadeusflightsearchapi.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ozanapps.amadeusflightsearchapi.model.Flight;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,32 +16,39 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/mock-api/flights")
 public class MockFlightApiController {
     private static final Logger logger = LoggerFactory.getLogger(MockFlightApiController.class);
 
-    @GetMapping("/")
+    private final ObjectMapper objectMapper;
+
+    public MockFlightApiController() {
+        // Create and configure ObjectMapper here
+        this.objectMapper = new ObjectMapper();
+        this.objectMapper.registerModule(new JavaTimeModule()); // Registering the JavaTimeModule
+    }
+
+    @GetMapping  // Updated this line
     public List<Flight> getAllFlights() {
         return readFlightsFromJsonFile();
     }
 
     private List<Flight> readFlightsFromJsonFile() {
         try {
-            String jsonFilePath = "src/main/resources/flights.json";
-
+            String jsonFilePath = Objects.requireNonNull(getClass().getClassLoader().getResource("flights.json")).getFile();
             InputStream inputStream = new FileInputStream(jsonFilePath);
             byte[] copyToByteArray = FileCopyUtils.copyToByteArray(inputStream);
             String json = new String(copyToByteArray, StandardCharsets.UTF_8);
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(json, new TypeReference<List<Flight>>() {});
-
+            TypeReference<List<Flight>> typeReference = new TypeReference<>() {
+            };
+            return objectMapper.readValue(json, typeReference); // Using the configured objectMapper
         } catch (IOException e) {
             logger.error("Error reading flights from JSON file", e);
             return List.of();
         }
     }
-
 }
