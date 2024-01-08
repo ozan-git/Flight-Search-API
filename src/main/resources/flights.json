@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "departureAirport": "Istanbul",
+    "arrivalAirport": "Ankara",
+    "departureTime": "2024-01-01T10:00:00",
+    "arrivalTime": "2024-01-01T12:00:00",
+    "price": 150
+  },
+  {
+    "id": 2,
+    "departureAirport": "Moscow",
+    "arrivalAirport": "St. Petersburg",
+    "departureTime": "2024-01-01T10:00:00",
+    "arrivalTime": "2024-01-01T12:00:00",
+    "price": 100
+  }
+]
