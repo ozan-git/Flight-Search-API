@@ -42,7 +42,7 @@ public class FlightControllerTest {
         mockFlight.setDepartureAirport("JFK");
         mockFlight.setArrivalAirport("LHR");
         mockFlight.setDepartureTime(LocalDateTime.of(2024, 1, 10, 14, 30));
-        mockFlight.setArrivalTime(LocalDateTime.of(2024, 1, 11, 2, 30));
+        mockFlight.setReturnTime(LocalDateTime.of(2024, 1, 11, 2, 30));
         mockFlights.add(mockFlight);
 
         Mockito.when(flightService.searchFlights(any(), any(), any(), any())).thenReturn(mockFlights);

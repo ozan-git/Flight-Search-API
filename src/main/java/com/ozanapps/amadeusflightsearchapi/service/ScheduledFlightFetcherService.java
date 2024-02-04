@@ -25,7 +25,7 @@ public class ScheduledFlightFetcherService {
         this.restTemplate = restTemplate;
     }
 
-    @Scheduled(fixedRate = 60000) // Runs every 60 seconds
+    @Scheduled(cron = "0 0 0 * * *") // Run every day at midnight
     public void fetchFlightsDaily() {
         try {
             ParameterizedTypeReference<List<Flight>> responseType = new ParameterizedTypeReference<>() {

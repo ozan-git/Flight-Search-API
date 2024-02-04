@@ -1,9 +1,15 @@
 [
   {
-    "departureAirport": "Istanbul",
-    "arrivalAirport": "Ankara",
-    "departureTime": "2024-01-01T10:00:00",
-    "arrivalTime": "2024-01-01T12:00:00",
+    "departureAirport": "Sofia",
+    "arrivalAirport": "London",
+    "departureTime": "2023-01-01T12:00:00",
+    "returnTime": "2023-01-01T14:00:00",
+    "price": 100.00
+  },
+  {
+    "departureAirport": "Zurich",
+    "arrivalAirport": "London",
+    "departureTime": "2023-01-01T12:00:00",
     "price": 100.00
   }
 ]

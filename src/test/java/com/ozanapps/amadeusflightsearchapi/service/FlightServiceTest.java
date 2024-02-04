@@ -42,7 +42,7 @@ public class FlightServiceTest {
         flight.setDepartureAirport("IST");
         flight.setArrivalAirport("ESB");
         flight.setDepartureTime(LocalDateTime.parse("2021-05-01T10:00:00"));
-        flight.setArrivalTime(LocalDateTime.parse("2021-05-01T11:00:00"));
+        flight.setReturnTime(LocalDateTime.parse("2021-05-01T11:00:00"));
         flight.setPrice(BigDecimal.valueOf(100.0));
         Mockito.when(flightRepository.save(flight)).thenReturn(flight);
         Flight newFlight = flightService.createFlight(flight);
@@ -50,26 +50,39 @@ public class FlightServiceTest {
         assertEquals("IST", newFlight.getDepartureAirport(), "Expected departure airport to be IST");
         assertEquals("ESB", newFlight.getArrivalAirport(), "Expected arrival airport to be ESB");
         assertEquals(flight.getDepartureTime().truncatedTo(ChronoUnit.MINUTES), newFlight.getDepartureTime().truncatedTo(ChronoUnit.MINUTES), "Expected departure time to be 2021-05-01T10:00");
-        assertEquals(flight.getArrivalTime().truncatedTo(ChronoUnit.MINUTES), newFlight.getArrivalTime().truncatedTo(ChronoUnit.MINUTES), "Expected arrival time to be 2021-05-01T11:00");
+        assertEquals(flight.getReturnTime().truncatedTo(ChronoUnit.MINUTES), newFlight.getReturnTime().truncatedTo(ChronoUnit.MINUTES), "Expected arrival time to be 2021-05-01T11:00");
         assertEquals(100.0, newFlight.getPrice().doubleValue(), "Expected price to be 100.0");
     }
 
     @Test
     public void whenSearchFlights_thenFlightsShouldBeFound() {
         Flight flight = new Flight();
+
         flight.setDepartureAirport("IST");
         flight.setArrivalAirport("ESB");
         flight.setDepartureTime(LocalDateTime.parse("2021-05-01T10:00:00"));
-        flight.setArrivalTime(LocalDateTime.parse("2021-05-01T11:00:00"));
+        flight.setReturnTime(LocalDateTime.parse("2021-05-01T11:00:00"));
         flight.setPrice(BigDecimal.valueOf(100.0));
-        Mockito.when(flightRepository.searchFlights("IST", "ESB", LocalDateTime.parse("2021-05-01T10:00:00"), LocalDateTime.parse("2021-05-01T11:00:00"))).thenReturn(Collections.singletonList(flight));
-        List<Flight> flights = flightService.searchFlights("IST", "ESB", LocalDateTime.parse("2021-05-01T10:00:00"), LocalDateTime.parse("2021-05-01T11:00:00"));
+
+        Mockito.when(flightRepository.searchFlights(
+                "IST",
+                "ESB",
+                LocalDateTime.parse("2021-05-01T10:00:00"),
+                LocalDateTime.parse("2021-05-01T11:00:00"))
+        ).thenReturn(Collections.singletonList(flight));
+
+        List<Flight> flights = flightService.searchFlights(
+                "IST",
+                "ESB",
+                LocalDateTime.parse("2021-05-01T10:00:00"),
+                LocalDateTime.parse("2021-05-01T11:00:00")
+        );
 
         assertEquals(1, flights.size(), "Expected 1 flight");
         assertEquals("IST", flights.get(0).getDepartureAirport(), "Expected departure airport to be IST");
         assertEquals("ESB", flights.get(0).getArrivalAirport(), "Expected arrival airport to be ESB");
         assertEquals(flight.getDepartureTime().truncatedTo(ChronoUnit.MINUTES), flights.get(0).getDepartureTime().truncatedTo(ChronoUnit.MINUTES), "Expected departure time to be 2021-05-01T10:00");
-        assertEquals(flight.getArrivalTime().truncatedTo(ChronoUnit.MINUTES), flights.get(0).getArrivalTime().truncatedTo(ChronoUnit.MINUTES), "Expected arrival time to be 2021-05-01T11:00");
+        assertEquals(flight.getReturnTime().truncatedTo(ChronoUnit.MINUTES), flights.get(0).getReturnTime().truncatedTo(ChronoUnit.MINUTES), "Expected arrival time to be 2021-05-01T11:00");
         assertEquals(100.0, flights.get(0).getPrice().doubleValue(), "Expected price to be 100.0");
     }
 

@@ -36,7 +36,7 @@ public class FlightService {
         flight.setDepartureAirport(flightDetails.getDepartureAirport());
         flight.setArrivalAirport(flightDetails.getArrivalAirport());
         flight.setDepartureTime(flightDetails.getDepartureTime());
-        flight.setArrivalTime(flightDetails.getArrivalTime());
+        flight.setReturnTime(flightDetails.getReturnTime());
         flight.setPrice(flightDetails.getPrice());
         return flightRepository.save(flight);
     }
@@ -45,6 +45,7 @@ public class FlightService {
         flightRepository.deleteById(id);
     }
 
+
     // search flights by id
     public List<Flight> searchFlightsById(Long id) {
         return flightRepository.searchFlightsById(id);
@@ -52,13 +53,12 @@ public class FlightService {
 
     public List<Flight> searchFlights(String departureAirport, String arrivalAirport, LocalDateTime departureTime, LocalDateTime returnTime) {
         if (returnTime == null) {
-            return flightRepository.findByDepartureAirportAndArrivalAirportAndDepartureTime(departureAirport, arrivalAirport, departureTime);
+            return flightRepository.searchFlightsByDepartureAirportAndArrivalAirportAndDepartureTime(departureAirport, arrivalAirport, departureTime);
         } else {
-            List<Flight> departures = flightRepository.findByDepartureAirportAndArrivalAirportAndDepartureTime(departureAirport, arrivalAirport, departureTime);
-            List<Flight> returns = flightRepository.findByDepartureAirportAndArrivalAirportAndDepartureTime(arrivalAirport, departureAirport, returnTime);
+            List<Flight> departures = flightRepository.searchFlightsByDepartureAirportAndArrivalAirportAndDepartureTime(departureAirport, arrivalAirport, departureTime);
+            List<Flight> returns = flightRepository.searchFlightsByDepartureAirportAndArrivalAirportAndDepartureTime(arrivalAirport, departureAirport, returnTime);
             departures.addAll(returns);
             return departures;
         }
     }
-
 }

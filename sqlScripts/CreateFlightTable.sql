@@ -4,7 +4,7 @@ CREATE TABLE flights
     departure_airport VARCHAR(100),
     arrival_airport   VARCHAR(100),
     departure_time    DATETIME,
-    arrival_time      DATETIME,
+    return_time       DATETIME,
     price             DECIMAL(10, 2),
     PRIMARY KEY (flight_id)
 );

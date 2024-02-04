@@ -56,9 +56,7 @@ public class FlightController {
                                                       @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureTime,
                                                       @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime returnTime) {
         List<Flight> flights = flightService.searchFlights(departureAirport, arrivalAirport, departureTime, returnTime);
-        if (flights.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+        if (flights.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(flights, HttpStatus.OK);
     }
 }

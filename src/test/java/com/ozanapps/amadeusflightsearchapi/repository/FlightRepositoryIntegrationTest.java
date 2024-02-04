@@ -25,7 +25,7 @@ public class FlightRepositoryIntegrationTest {
         flight.setDepartureAirport("IST");
         flight.setArrivalAirport("ESB");
         flight.setDepartureTime(LocalDateTime.parse("2021-05-01T10:00:00"));
-        flight.setArrivalTime(LocalDateTime.parse("2021-05-01T11:00:00"));
+        flight.setReturnTime(LocalDateTime.parse("2021-05-01T11:00:00"));
         flight.setPrice(BigDecimal.valueOf(100.0));
 
         // When: Save the flight to the database
@@ -42,7 +42,7 @@ public class FlightRepositoryIntegrationTest {
         flight.setDepartureAirport("IST");
         flight.setArrivalAirport("ESB");
         flight.setDepartureTime(LocalDateTime.parse("2021-05-01T10:00:00"));
-        flight.setArrivalTime(LocalDateTime.parse("2021-05-01T11:00:00"));
+        flight.setReturnTime(LocalDateTime.parse("2021-05-01T11:00:00"));
         flight.setPrice(BigDecimal.valueOf(100.0));
 
         // When: Save the flight to the database
@@ -65,7 +65,7 @@ public class FlightRepositoryIntegrationTest {
         flight.setDepartureAirport("IST");
         flight.setArrivalAirport("ESB");
         flight.setDepartureTime(LocalDateTime.parse("2021-05-01T10:00:00"));
-        flight.setArrivalTime(LocalDateTime.parse("2021-05-01T11:00:00"));
+        flight.setReturnTime(LocalDateTime.parse("2021-05-01T11:00:00"));
         flight.setPrice(BigDecimal.valueOf(100.0));
 
         // When: Save the flight to the database
@@ -78,7 +78,7 @@ public class FlightRepositoryIntegrationTest {
         savedFlight.setDepartureAirport("SAW");
         savedFlight.setArrivalAirport("ADB");
         savedFlight.setDepartureTime(LocalDateTime.parse("2021-05-01T12:00:00"));
-        savedFlight.setArrivalTime(LocalDateTime.parse("2021-05-01T13:00:00"));
+        savedFlight.setReturnTime(LocalDateTime.parse("2021-05-01T13:00:00"));
         savedFlight.setPrice(BigDecimal.valueOf(200.0));
         flightRepository.save(savedFlight);
 

@@ -23,8 +23,8 @@ public class Flight {
     @Column(name = "departure_time")
     private LocalDateTime departureTime;
 
-    @Column(name = "arrival_time")
-    private LocalDateTime arrivalTime;
+    @Column(name = "return_time")
+    private LocalDateTime returnTime;
 
     @Column(name = "price")
     private BigDecimal price;
@@ -62,12 +62,12 @@ public class Flight {
         this.departureTime = departureTime;
     }
 
-    public LocalDateTime getArrivalTime() {
-        return arrivalTime;
+    public LocalDateTime getReturnTime() {
+        return returnTime;
     }
 
-    public void setArrivalTime(LocalDateTime arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setReturnTime(LocalDateTime returnTime) {
+        this.returnTime = returnTime;
     }
 
     public BigDecimal getPrice() {
