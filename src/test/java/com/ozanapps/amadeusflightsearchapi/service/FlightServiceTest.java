@@ -16,8 +16,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -37,7 +36,7 @@ public class FlightServiceTest {
     }
 
     @Test
-    public void whenCreateFlight_thenFlightShouldBeCreated() {
+    public void whenTwoCreateFlight_thenFlightShouldBeCreated() {
         Flight flight = new Flight();
         flight.setDepartureAirport("IST");
         flight.setArrivalAirport("ESB");
@@ -45,14 +44,33 @@ public class FlightServiceTest {
         flight.setReturnTime(LocalDateTime.parse("2021-05-01T11:00:00"));
         flight.setPrice(BigDecimal.valueOf(100.0));
         Mockito.when(flightRepository.save(flight)).thenReturn(flight);
-        Flight newFlight = flightService.createFlight(flight);
 
-        assertEquals("IST", newFlight.getDepartureAirport(), "Expected departure airport to be IST");
-        assertEquals("ESB", newFlight.getArrivalAirport(), "Expected arrival airport to be ESB");
-        assertEquals(flight.getDepartureTime().truncatedTo(ChronoUnit.MINUTES), newFlight.getDepartureTime().truncatedTo(ChronoUnit.MINUTES), "Expected departure time to be 2021-05-01T10:00");
-        assertEquals(flight.getReturnTime().truncatedTo(ChronoUnit.MINUTES), newFlight.getReturnTime().truncatedTo(ChronoUnit.MINUTES), "Expected arrival time to be 2021-05-01T11:00");
-        assertEquals(100.0, newFlight.getPrice().doubleValue(), "Expected price to be 100.0");
+        // we crated 2 flights
+        Flight createdFlight = flightService.createFlight(flight);
+        assertEquals("IST", createdFlight.getDepartureAirport(), "Expected departure airport to be IST");
+        assertEquals("ESB", createdFlight.getArrivalAirport(), "Expected arrival airport to be ESB");
+        assertEquals(flight.getDepartureTime().truncatedTo(ChronoUnit.MINUTES), createdFlight.getDepartureTime().truncatedTo(ChronoUnit.MINUTES), "Expected departure time to be 2021-05-01T10:00");
+        assertEquals(flight.getReturnTime().truncatedTo(ChronoUnit.MINUTES), createdFlight.getReturnTime().truncatedTo(ChronoUnit.MINUTES), "Expected arrival time to be 2021-05-01T11:00");
+        assertEquals(100.0, createdFlight.getPrice().doubleValue(), "Expected price to be 100.0");
     }
+
+    @Test
+    public void whenOneCreateFlight_thenFlightShouldBeCreated() {
+        Flight flight = new Flight();
+        flight.setDepartureAirport("ZRH");
+        flight.setArrivalAirport("SYD");
+        flight.setDepartureTime(LocalDateTime.parse("2021-05-01T10:00:00"));
+        flight.setPrice(BigDecimal.valueOf(100.0));
+        Mockito.when(flightRepository.save(flight)).thenReturn(flight);
+
+        Flight createdFlight = flightService.createFlight(flight);
+        assertEquals("ZRH", createdFlight.getDepartureAirport(), "Expected departure airport to be IST");
+        assertEquals("SYD", createdFlight.getArrivalAirport(), "Expected arrival airport to be ESB");
+        assertEquals(flight.getDepartureTime().truncatedTo(ChronoUnit.MINUTES), createdFlight.getDepartureTime().truncatedTo(ChronoUnit.MINUTES), "Expected departure time to be 2021-05-01T10:00");
+        assertNull(createdFlight.getReturnTime(), "Expected arrival time to be null");
+        assertEquals(100.0, createdFlight.getPrice().doubleValue(), "Expected price to be 100.0");
+    }
+
 
     @Test
     public void whenSearchFlights_thenFlightsShouldBeFound() {

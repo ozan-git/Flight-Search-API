@@ -22,8 +22,8 @@ public class FlightController {
 
     @PostMapping("/")
     public ResponseEntity<Flight> createFlight(@RequestBody Flight flight) {
-        Flight newFlight = flightService.createFlight(flight);
-        return new ResponseEntity<>(newFlight, HttpStatus.CREATED);
+        Flight savedFlight = flightService.createFlight(flight);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedFlight);
     }
 
     @GetMapping("/{id}")
