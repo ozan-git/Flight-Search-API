@@ -57,6 +57,7 @@ public class FlightServiceTest {
     @Test
     public void whenOneCreateFlight_thenFlightShouldBeCreated() {
         Flight flight = new Flight();
+
         flight.setDepartureAirport("ZRH");
         flight.setArrivalAirport("SYD");
         flight.setDepartureTime(LocalDateTime.parse("2021-05-01T10:00:00"));
@@ -71,23 +72,28 @@ public class FlightServiceTest {
         assertEquals(100.0, createdFlight.getPrice().doubleValue(), "Expected price to be 100.0");
     }
 
-
     @Test
     public void whenSearchFlights_thenFlightsShouldBeFound() {
         Flight flight = new Flight();
-
         flight.setDepartureAirport("IST");
         flight.setArrivalAirport("ESB");
         flight.setDepartureTime(LocalDateTime.parse("2021-05-01T10:00:00"));
         flight.setReturnTime(LocalDateTime.parse("2021-05-01T11:00:00"));
         flight.setPrice(BigDecimal.valueOf(100.0));
 
-        Mockito.when(flightRepository.searchFlights(
-                "IST",
-                "ESB",
-                LocalDateTime.parse("2021-05-01T10:00:00"),
-                LocalDateTime.parse("2021-05-01T11:00:00"))
-        ).thenReturn(Collections.singletonList(flight));
+        // Mock the search for the departure flight
+        Mockito.when(flightRepository.searchFlightsByDepartureAirportAndArrivalAirportAndDepartureTime(
+                Mockito.eq("IST"),
+                Mockito.eq("ESB"),
+                Mockito.eq(LocalDateTime.parse("2021-05-01T10:00:00"))
+        )).thenReturn(Collections.singletonList(flight));
+
+        // Mock the search for the return flight, if applicable
+        Mockito.when(flightRepository.searchFlightsByDepartureAirportAndArrivalAirportAndDepartureTime(
+                Mockito.eq("ESB"),
+                Mockito.eq("IST"),
+                Mockito.eq(LocalDateTime.parse("2021-05-01T11:00:00"))
+        )).thenReturn(Collections.emptyList());
 
         List<Flight> flights = flightService.searchFlights(
                 "IST",
