@@ -56,7 +56,7 @@ follows RESTful principles.
 
 ## Usage
 
-After starting the application, you can access the API endpoints through `http://localhost:8081/`. Here are some common
+After starting the application, you can access the API endpoints through `http://localhost:8080/`. Here are some common
 endpoints you might use:
 
 - `GET /api/flights`: Retrieves all flights.
@@ -64,7 +64,7 @@ endpoints you might use:
 - `GET /api/airports`: Retrieves all airports.
 - `POST /api/auth/signup`: Registers a new user.
 
-For detailed API documentation, visit `http://localhost:8081/swagger-ui.html` after starting the application.
+For detailed API documentation, visit `http://localhost:8080/swagger-ui.html` after starting the application.
 
 ## Contributing
 
